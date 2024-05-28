@@ -7,6 +7,7 @@ use App\Models\SocialAccount;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Exception;
 
 class SocialiteController extends Controller
 {
@@ -48,7 +49,7 @@ class SocialiteController extends Controller
             // Jika belum ada
         } else {
 
-            // User berdasarkan email 
+            // User berdasarkan email
             $user = User::where('email', $socialUser->getEmail())->first();
 
             // Jika Tidak ada user
