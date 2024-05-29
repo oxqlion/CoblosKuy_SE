@@ -77,6 +77,7 @@ class ElectionModelController extends Controller
             $vote = new VoteModel();
             $vote->election_id = $electionId;
             $vote->user_id = $userId;
+            $vote->voteTime = now();
             $vote->save();
 
             return view('', [
