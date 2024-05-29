@@ -6,6 +6,7 @@ use App\Models\CandidateModel;
 use App\Models\ElectionModel;
 use App\Models\User;
 use App\Models\VoteModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -71,13 +72,15 @@ class ElectionModelController extends Controller
     // menambahkan data baru pada VoteModel
     public function createVote($electionId, $userId)
     {
+        $nowJakarta = Carbon::now()->setTimezone('Asia/Jakarta');
+
         try {
             $electionData = ElectionModel::findOrFail($electionId);
             $userData = User::findOrFail($userId);
             $vote = new VoteModel();
             $vote->election_id = $electionId;
             $vote->user_id = $userId;
-            $vote->voteTime = now();
+            $vote->voteTime = $nowJakarta;
             $vote->save();
 
             return view('', [

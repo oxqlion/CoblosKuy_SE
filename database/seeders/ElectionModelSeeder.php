@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ElectionModelSeeder extends Seeder
 {
@@ -15,26 +15,28 @@ class ElectionModelSeeder extends Seeder
      */
     public function run()
     {
+        $nowJakarta = Carbon::now()->setTimezone('Asia/Jakarta');
+
         DB::table('election_models')->insert([
             [
                 'name' => 'Election 1',
                 'description' => 'Description for Election 1',
-                'timeStart' => '08:00:00',
-                'timeEnd' => '17:00:00',
+                'timeStart' => $nowJakarta->copy()->setTime(8, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(17, 0, 0)->toDateTimeString(),
                 'banner' => 'banner1.jpg',
             ],
             [
                 'name' => 'Election 2',
                 'description' => 'Description for Election 2',
-                'timeStart' => '09:00:00',
-                'timeEnd' => '18:00:00',
+                'timeStart' => $nowJakarta->copy()->setTime(9, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(18, 0, 0)->toDateTimeString(),
                 'banner' => 'banner2.jpg',
             ],
             [
                 'name' => 'Election 3',
                 'description' => 'Description for Election 3',
-                'timeStart' => '10:00:00',
-                'timeEnd' => '19:00:00',
+                'timeStart' => $nowJakarta->copy()->setTime(10, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(19, 0, 0)->toDateTimeString(),
                 'banner' => 'banner3.jpg',
             ],
         ]);

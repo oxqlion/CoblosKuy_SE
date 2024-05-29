@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vote_counts', function (Blueprint $table) {
+        Schema::create('vote_models', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('electionId');
-            $table->time('voteTime');
+            $table->dateTime('voteTime');
             $table->unsignedBigInteger('userId');
 
             $table->foreign('electionId')->references('id')->on('election_models')->onDelete('cascade')->onUpdate('cascade');
