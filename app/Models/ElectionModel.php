@@ -9,6 +9,7 @@ class ElectionModel extends Model
 {
     use HasFactory;
 
+    //Membuat attribut seperti tabel
     protected $fillable = [
         'name',
         'description',
