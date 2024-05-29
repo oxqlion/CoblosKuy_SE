@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(UserSeeder::class);
-        $this->call(ElectionModelSeeder::class);
-        $this->call(VoteModelSeeder::class);
+        $this->call(ElectionSeeder::class);
+        $this->call(CandidateSeeder::class);
+        $this->call(VoteSeeder::class);
     }
 }
