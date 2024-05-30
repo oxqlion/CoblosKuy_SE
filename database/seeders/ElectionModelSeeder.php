@@ -23,14 +23,14 @@ class ElectionModelSeeder extends Seeder
                 'description' => 'Description for Election 1',
                 'timeStart' => $nowJakarta->copy()->setTime(8, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(17, 0, 0)->toDateTimeString(),
-                'banner' => 'banner1.jpg',
+                'banner' => 'banner1.png',
             ],
             [
                 'name' => 'Election 2',
                 'description' => 'Description for Election 2',
                 'timeStart' => $nowJakarta->copy()->setTime(9, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(18, 0, 0)->toDateTimeString(),
-                'banner' => 'banner2.jpg',
+                'banner' => 'banner2.png',
             ],
             [
                 'name' => 'Election 3',
