@@ -20,7 +20,7 @@ class CandidateSeeder extends Seeder
                 'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif, dengan semangat untuk menciptakan lingkungan akademis yang mendukung pengembangan potensi diri dan profesionalisme di bidang teknologi informasi.',
                 'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, Pengembangan Karir dan Profesionalisme.',
                 'voteCount' => '15',
-                'profilePicture' => '/images/bryan.JPG',
+                'profilePicture' => 'bryan.JPG',
                 'electionId' => 1,
             ],
             [
@@ -28,14 +28,14 @@ class CandidateSeeder extends Seeder
                 'vision' => 'Mewujudkan SU IMT yang bisa mengalahkan SU lainya dengan adil dan kompetitif.',
                 'mission' => 'Pembinaan Kemampuan Soft Skills, Kebersamaan dan Kepedulian Sosial,Inklusi dan Keberagaman',
                 'voteCount' => '16',
-                'profilePicture' => '/images/rafi.JPG',
+                'profilePicture' => 'rafi.JPG',
                 'electionId' => 1,
             ],[
                 'name' => 'Yobel Nathaniel',
                 'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif, dengan semangat untuk menciptakan lingkungan akademis yang mendukung pengembangan potensi diri dan profesionalisme di bidang teknologi informasi.',
                 'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, Pengembangan Karir dan Profesionalisme.',
                 'voteCount' => '15',
-                'profilePicture' => '/images/yobel.JPG',
+                'profilePicture' => 'yobel.JPG',
                 'electionId' => 2,
             ],
             [
@@ -43,7 +43,7 @@ class CandidateSeeder extends Seeder
                 'vision' => 'Mewujudkan SU IMT yang bisa mengalahkan SU lainya dengan adil dan kompetitif.',
                 'mission' => 'Pembinaan Kemampuan Soft Skills, Kebersamaan dan Kepedulian Sosial,Inklusi dan Keberagaman',
                 'voteCount' => '16',
-                'profilePicture' => '/images/derrend.JPG',
+                'profilePicture' => 'derrend.JPG',
                 'electionId' => 2,
             ],
             [
@@ -51,7 +51,7 @@ class CandidateSeeder extends Seeder
                 'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif, dengan semangat untuk menciptakan lingkungan akademis yang mendukung pengembangan potensi diri dan profesionalisme di bidang teknologi informasi.',
                 'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, Pengembangan Karir dan Profesionalisme.',
                 'voteCount' => '15',
-                'profilePicture' => '/images/wilas.JPG',
+                'profilePicture' => 'wilas.JPG',
                 'electionId' => 3,
             ],
             [
@@ -59,7 +59,7 @@ class CandidateSeeder extends Seeder
                 'vision' => 'Mewujudkan SU IMT yang bisa mengalahkan SU lainya dengan adil dan kompetitif.',
                 'mission' => 'Pembinaan Kemampuan Soft Skills, Kebersamaan dan Kepedulian Sosial,Inklusi dan Keberagaman',
                 'voteCount' => '16',
-                'profilePicture' => '/images/nathan.JPG',
+                'profilePicture' => 'nathan.JPG',
                 'electionId' => 3,
             ],
 

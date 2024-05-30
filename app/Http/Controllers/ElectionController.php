@@ -12,13 +12,38 @@ use Exception;
 
 class ElectionController extends Controller
 {
+
+    // mengambil semua election data
+    public function getAllElection(){
+        $elections = ElectionModel::all();
+
+        return view('dashboard', [
+            'elections' => $elections
+        ]);
+    }
+
     // mengambil data election dengan detail
     public function getElectionData($electionId)
     {
         try {
+            $candidates = CandidateModel::where('electionId', $electionId)->get();
             $electionData = ElectionModel::findOrFail($electionId);
-            return view('', [
-                'electionData' => $electionData
+            return view('electiondetailview', [
+                'electionData' => $electionData,
+                'candidates' => $candidates
+            ]);
+        }
+        catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function getVotingPage($electionId)
+    {
+        try {
+            $candidates = CandidateModel::where('electionId', $electionId)->get();
+            return view('votingpageview', [
+                'candidates' => $candidates
             ]);
         }
         catch (Exception $e) {
@@ -60,7 +85,7 @@ class ElectionController extends Controller
     {
         try {
             $candidate = CandidateModel::findOrFail($candidateId);
-            $candidate->voteCount = $candidate-> voteCount + 1;
+            $candidate->voteCount = $candidate->vote_count + 1;
             $candidate->save();
             return redirect()->back();
         }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\ElectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,17 @@ use App\Http\Controllers\Auth\SocialController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', [ElectionController::class, 'getAllElection'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/electiondetail/{id}', [ElectionController::class, 'getElectionData'])->middleware(['auth', 'verified'])->name('electiondetail');
+Route::get('/voting/{id}', [ElectionController::class, 'getVotingPage'])->middleware(['auth', 'verified'])->name('voting');
+Route::post('/vote/{id}', [ElectionController::class, 'updateVoteCount'])->middleware(['auth', 'verified'])->name('vote');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
