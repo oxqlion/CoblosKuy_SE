@@ -9,6 +9,7 @@ use App\Models\VoteModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ElectionController extends Controller
 {
@@ -51,6 +52,31 @@ class ElectionController extends Controller
         }
     }
 
+    public function vote(Request $request, $id){
+        $candidate = CandidateModel::find($id);
+        $election = ElectionModel::where('id', $candidate->electionId)->first();
+        $user = Auth::user();
+
+        $hasVoted = VoteModel::where('userId', $user->id)
+            ->where('electionId', $election->id)
+            ->first();
+
+        if ($hasVoted) {
+            return redirect()->back()->with('error', 'You have already voted');
+        } else {
+            try {
+                $candidate->voteCount += 1;
+                $candidate->save();
+                $elections = ElectionModel::all();
+                return redirect()->route('electiondetail');
+            }
+            catch (Exception $e) {
+                return redirect()->back()->with('error', $e->getMessage());
+            }
+        }
+        
+    }
+
     // melakukan pengecekkan apakah user dengan id sekian sudah vote di election dengan id sekian
     public function processVote($electionId, $userId)
     {
@@ -67,11 +93,11 @@ class ElectionController extends Controller
     }
 
     // mendapatkan data detail mengenai candidate
-    public function getCandidateDetail($electionId)
+    public function getCandidateDetail($id)
     {
         try {
-            $candidateDetail = CandidateModel::findOrFail($electionId);
-            return view('' . [
+            $candidateDetail = CandidateModel::findOrFail($id);
+            return view('candidatedetailview', [
                 'candidateDetail' => $candidateDetail
             ]);
         }
