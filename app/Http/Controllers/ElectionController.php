@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 
-class ElectionModelController extends Controller
+class ElectionController extends Controller
 {
     // mengambil data election dengan detail
     public function getElectionData($electionId)
@@ -60,7 +60,7 @@ class ElectionModelController extends Controller
     {
         try {
             $candidate = CandidateModel::findOrFail($candidateId);
-            $candidate->voteCount = $candidate->vote_count + 1;
+            $candidate->voteCount = $candidate-> voteCount + 1;
             $candidate->save();
             return redirect()->back();
         }

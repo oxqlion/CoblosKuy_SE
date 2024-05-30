@@ -16,6 +16,13 @@ return new class extends Migration
         Schema::create('candidate_models', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('mission');
+            $table->string('vision');
+            $table->string('name');
+            $table->unsignedBigInteger('voteCount');
+            $table->string('profilePicture');
+            $table->unsignedBigInteger('electionId');
+            $table->foreign('electionId')->references('id')->on('election_models')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

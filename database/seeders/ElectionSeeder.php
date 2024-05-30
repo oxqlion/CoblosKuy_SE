@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-class ElectionModelSeeder extends Seeder
+class ElectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,25 +19,25 @@ class ElectionModelSeeder extends Seeder
 
         DB::table('election_models')->insert([
             [
-                'name' => 'Election 1',
-                'description' => 'Description for Election 1',
+                'name' => 'SU IMT President ELECTION',
+                'description' => 'Yuk Voting President SU IMT 2026-2027',
                 'timeStart' => $nowJakarta->copy()->setTime(8, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(17, 0, 0)->toDateTimeString(),
-                'banner' => 'banner1.jpg',
+                'banner' => '/images/banner1.jpg',
             ],
             [
-                'name' => 'Election 2',
-                'description' => 'Description for Election 2',
+                'name' => 'SU ISB President ELECTION',
+                'description' => 'Yuk Voting President SU ISB 2026-2027',
                 'timeStart' => $nowJakarta->copy()->setTime(9, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(18, 0, 0)->toDateTimeString(),
-                'banner' => 'banner2.jpg',
+                'banner' => '/images/banner2.jpg',
             ],
             [
-                'name' => 'Election 3',
-                'description' => 'Description for Election 3',
+                'name' => 'SU VCD President ELECTION',
+                'description' => 'Yuk Voting President SU VCD 2026-2027',
                 'timeStart' => $nowJakarta->copy()->setTime(10, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(19, 0, 0)->toDateTimeString(),
-                'banner' => 'banner3.jpg',
+                'banner' => '/images/banner3.jpg',
             ],
         ]);
     }

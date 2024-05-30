@@ -7,7 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class VoteModelSeeder extends Seeder
+class VoteSeeder extends Seeder
 {
     /**
      * Run the database seeds.

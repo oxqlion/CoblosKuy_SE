@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ElectionModel>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\VoteModel>
  */
-class ElectionModelFactory extends Factory
+class VoteFactory extends Factory
 {
     /**
      * Define the model's default state.
