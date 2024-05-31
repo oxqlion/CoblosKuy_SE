@@ -29,14 +29,14 @@ class ElectionSeeder extends Seeder
                 'name' => 'SU ISB President ELECTION',
                 'description' => 'Yuk Voting President SU ISB 2026-2027',
                 'timeStart' => $nowJakarta->copy()->setTime(9, 0, 0)->toDateTimeString(),
-                'timeEnd' => $nowJakarta->copy()->setTime(18, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(24, 0, 0)->toDateTimeString(),
                 'banner' => 'banner2.jpg',
             ],
             [
                 'name' => 'SU VCD President ELECTION',
                 'description' => 'Yuk Voting President SU VCD 2026-2027',
                 'timeStart' => $nowJakarta->copy()->setTime(10, 0, 0)->toDateTimeString(),
-                'timeEnd' => $nowJakarta->copy()->setTime(19, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(24, 0, 0)->toDateTimeString(),
                 'banner' => 'banner3.jpg',
             ],
         ]);

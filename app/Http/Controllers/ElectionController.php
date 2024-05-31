@@ -47,13 +47,14 @@ class ElectionController extends Controller
             return view('electiondetailview', [
                 'electionData' => $electionData,
                 'candidates' => $candidates,
-                'error' => 'The time for this election has ended.'
+                'error' => 'The time for this election has ended.',
             ]);
         }
     }
 
     public function getVotingPage($electionId)
     {
+
         $check = $this->processVote($electionId);
         if ($check) {
             return redirect()->back()->with('error', 'You have already voted');
@@ -69,6 +70,16 @@ class ElectionController extends Controller
             }
         }
     }
+
+    // public function checkmodal($electionId)
+    // {
+    //     $check = $this->processVote($electionId);
+    //     if ($check) {
+    //         return redirect()->back()->with('error', 'You have already voted');
+    //     } else {
+    //         return redirect()->back()->with('error', 'You have already voted');
+    //     }
+    // }
 
     public function vote(Request $request, $id){
         $candidate = CandidateModel::find($id);

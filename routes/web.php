@@ -31,7 +31,7 @@ Route::get('/electiondetail/{id}', [ElectionController::class, 'getElectionData'
 Route::get('/voting/{id}', [ElectionController::class, 'getVotingPage'])->middleware(['auth', 'verified'])->name('voting');
 Route::get('/candidatedetail/{id}', [ElectionController::class, 'getCandidateDetail'])->middleware(['auth', 'verified'])->name('candidatedetail');
 Route::post('/vote/{id}', [ElectionController::class, 'vote'])->middleware(['auth', 'verified'])->name('vote');
-
+// Route::get('/checkmodal/{id}', [ElectionController::class, 'checkmodal']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
