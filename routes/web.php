@@ -17,16 +17,17 @@ use App\Http\Controllers\ElectionController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/', [ElectionController::class, 'getAllElection'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/electiondetail/{id}', [ElectionController::class, 'getElectionData'])->middleware(['auth', 'verified'])->name('electiondetail');
+Route::get('/', [ElectionController::class, 'getAllElection'])->name('dashboard');
+Route::get('/dashboard', [ElectionController::class, 'getAllElection'])->name('dashboard');
+Route::get('/electiondetail/{id}', [ElectionController::class, 'getElectionData'])->name('electiondetail');
 Route::get('/voting/{id}', [ElectionController::class, 'getVotingPage'])->middleware(['auth', 'verified'])->name('voting');
 Route::get('/candidatedetail/{id}', [ElectionController::class, 'getCandidateDetail'])->middleware(['auth', 'verified'])->name('candidatedetail');
 Route::post('/vote/{id}', [ElectionController::class, 'vote'])->middleware(['auth', 'verified'])->name('vote');

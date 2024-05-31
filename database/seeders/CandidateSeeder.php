@@ -17,8 +17,8 @@ class CandidateSeeder extends Seeder
         DB::table('candidate_models')->insert([
             [
                 'name' => 'Bryan Samuel',
-                'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif, dengan semangat untuk menciptakan lingkungan akademis yang mendukung pengembangan potensi diri dan profesionalisme di bidang teknologi informasi.',
-                'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, Pengembangan Karir dan Profesionalisme.',
+                'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif.',
+                'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, dan Profesionalisme.',
                 'voteCount' => '15',
                 'profilePicture' => 'bryan.JPG',
                 'electionId' => 1,
@@ -32,8 +32,8 @@ class CandidateSeeder extends Seeder
                 'electionId' => 1,
             ],[
                 'name' => 'Yobel Nathaniel',
-                'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif, dengan semangat untuk menciptakan lingkungan akademis yang mendukung pengembangan potensi diri dan profesionalisme di bidang teknologi informasi.',
-                'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, Pengembangan Karir dan Profesionalisme.',
+                'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif.',
+                'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas dan Profesionalisme.',
                 'voteCount' => '15',
                 'profilePicture' => 'yobel.JPG',
                 'electionId' => 2,
@@ -48,8 +48,8 @@ class CandidateSeeder extends Seeder
             ],
             [
                 'name' => 'Willas Tobing',
-                'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif, dengan semangat untuk menciptakan lingkungan akademis yang mendukung pengembangan potensi diri dan profesionalisme di bidang teknologi informasi.',
-                'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas, Pengembangan Karir dan Profesionalisme.',
+                'vision' => 'Mewujudkan Himpunan Mahasiswa Informatika yang inovatif, inklusif, dan kolaboratif',
+                'mission' => 'Inovasi dalam Pendidikan dan Teknologi, Peningkatan Kualitas Layanan dan Fasilitas dan Profesionalisme.',
                 'voteCount' => '15',
                 'profilePicture' => 'wilas.JPG',
                 'electionId' => 3,
