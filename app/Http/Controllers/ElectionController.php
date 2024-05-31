@@ -26,18 +26,19 @@ class ElectionController extends Controller
     // mengambil data election dengan detail
     public function getElectionData($electionId)
     {
-        $votingTime = $this->getVotingTime($electionId);
+        $votingTimes = $this->getVotingTime($electionId);
         $currentTime = Carbon::now('Asia/Jakarta');
         $candidates = CandidateModel::where('electionId', $electionId)->get();
         $electionData = ElectionModel::findOrFail($electionId);
 
-        if ($currentTime >= $votingTime['votingTimeStart'] && $currentTime < $votingTime['votingTimeEnd']){
+        if ($currentTime >= $votingTimes['votingTimeStart'] && $currentTime < $votingTimes['votingTimeEnd']){
             try {
 
                 return view('electiondetailview', [
                     'electionData' => $electionData,
                     'candidates' => $candidates,
-                    'error' => null,
+                    'votingTimes' => $votingTimes,
+                    'error' => null
                 ]);
             }
             catch (Exception $e) {
@@ -47,6 +48,7 @@ class ElectionController extends Controller
             return view('electiondetailview', [
                 'electionData' => $electionData,
                 'candidates' => $candidates,
+                'votingTimes' => $votingTimes,
                 'error' => 'The time for this election has ended.',
             ]);
         }

@@ -8,11 +8,27 @@
     @if (!session('error'))
         <div class="py-5 text-gray-800 dark:text-gray-200">
             <div class="box-content py-4 text-center">
-                <h1 class="text-4xl font-bold">{{ $error }}</h1>
+                <h1 class="text-4xl font-bold text-red-500">{{ $error }}</h1>
             </div>
         </div>
     @endif
     <div class="grid grid-cols-2 py-5 text-gray-800 dark:text-gray-200">
+        @foreach ($votingTimes as $votingTime)
+        <div class="col-span-2">
+            @if ($loop->first)
+                <h1 class="text-center my-4 text-2xl font-bold text-green-500">
+                    Start Voting Time:
+                </h1>
+            @else
+                <h1 class="text-center my-4 text-2xl font-bold text-green-500">
+                    End Voting Time:
+                </h1>
+            @endif
+            <h1 class="text-center my-4 text-2xl font-bold">
+                {{ $votingTime }}
+            </h1>
+        </div>
+        @endforeach
         @foreach ($candidates as $candidate)
             <div class="box-content p-4 rounded-lg drop-shadow-xl text-center">
                 <img src="/images/{{ $candidate->profilePicture }}" style="width: 428px; height: 428px;"
