@@ -15,7 +15,8 @@ class ElectionController extends Controller
 {
 
     // mengambil semua election data
-    public function getAllElection(){
+    public function getAllElection()
+    {
         $elections = ElectionModel::all();
 
         return view('dashboard', [
@@ -31,7 +32,7 @@ class ElectionController extends Controller
         $candidates = CandidateModel::where('electionId', $electionId)->get();
         $electionData = ElectionModel::findOrFail($electionId);
 
-        if ($currentTime >= $votingTimes['votingTimeStart'] && $currentTime < $votingTimes['votingTimeEnd']){
+        if ($currentTime >= $votingTimes['votingTimeStart'] && $currentTime < $votingTimes['votingTimeEnd']) {
             try {
 
                 return view('electiondetailview', [
@@ -40,8 +41,19 @@ class ElectionController extends Controller
                     'votingTimes' => $votingTimes,
                     'error' => null
                 ]);
+            } catch (Exception $e) {
+                return redirect()->back()->with('error', $e->getMessage());
             }
-            catch (Exception $e) {
+        } else if ($currentTime < $votingTimes['votingTimeStart']) {
+            try {
+
+                return view('electiondetailview', [
+                    'electionData' => $electionData,
+                    'candidates' => $candidates,
+                    'votingTimes' => $votingTimes,
+                    'error' => 'The time for this election has not started yet.'
+                ]);
+            } catch (Exception $e) {
                 return redirect()->back()->with('error', $e->getMessage());
             }
         } else {
@@ -57,6 +69,7 @@ class ElectionController extends Controller
     public function getVotingPage($electionId)
     {
 
+        $electionData = ElectionModel::findOrFail($electionId);
         $check = $this->processVote($electionId);
         if ($check) {
             return redirect()->back()->with('error', 'You have already voted');
@@ -64,10 +77,10 @@ class ElectionController extends Controller
             try {
                 $candidates = CandidateModel::where('electionId', $electionId)->get();
                 return view('votingpageview', [
-                    'candidates' => $candidates
+                    'candidates' => $candidates,
+                    'electionData' => $electionData,
                 ]);
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 return redirect()->back()->with('error', $e->getMessage());
             }
         }
@@ -83,20 +96,20 @@ class ElectionController extends Controller
     //     }
     // }
 
-    public function vote(Request $request, $id){
+    public function vote(Request $request, $id)
+    {
         $candidate = CandidateModel::find($id);
         $election = ElectionModel::where('id', $candidate->electionId)->first();
         $user = Auth::user();
-            try {
-                $this->createVote($election->id, $user->id);
-                $this->updateVoteCount($id);
-                $elections = ElectionModel::all();
+        try {
+            $this->createVote($election->id, $user->id);
+            $this->updateVoteCount($id);
+            $elections = ElectionModel::all();
 
-                return redirect()->route('electiondetail', ['id' => $election->id]);
-            }
-            catch (Exception $e) {
-                return redirect()->back()->with('error', $e->getMessage());
-            }
+            return redirect()->route('electiondetail', ['id' => $election->id]);
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     // melakukan pengecekkan apakah user dengan id sekian sudah vote di election dengan id sekian
@@ -124,8 +137,7 @@ class ElectionController extends Controller
             return view('candidatedetailview', [
                 'candidateDetail' => $candidateDetail
             ]);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -138,8 +150,7 @@ class ElectionController extends Controller
             $candidate->voteCount = $candidate->voteCount + 1;
             $candidate->save();
             return redirect()->back();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -169,8 +180,7 @@ class ElectionController extends Controller
             //     'votingTimeStart' => $votingTimeStart,
             //     'votingTimeEnd' => $votingTimeEnd,
             // ]);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

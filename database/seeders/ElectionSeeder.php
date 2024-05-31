@@ -21,8 +21,8 @@ class ElectionSeeder extends Seeder
             [
                 'name' => 'SU IMT President ELECTION',
                 'description' => 'Yuk Voting President SU IMT 2026-2027',
-                'timeStart' => $nowJakarta->copy()->setTime(8, 0, 0)->toDateTimeString(),
-                'timeEnd' => $nowJakarta->copy()->setTime(11, 0, 0)->toDateTimeString(),
+                'timeStart' => $nowJakarta->copy()->setTime(4, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(6, 0, 0)->toDateTimeString(),
                 'banner' => 'banner1.jpg',
             ],
             [
@@ -35,7 +35,7 @@ class ElectionSeeder extends Seeder
             [
                 'name' => 'SU VCD President ELECTION',
                 'description' => 'Yuk Voting President SU VCD 2026-2027',
-                'timeStart' => $nowJakarta->copy()->setTime(10, 0, 0)->toDateTimeString(),
+                'timeStart' => $nowJakarta->copy()->setTime(23, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(24, 0, 0)->toDateTimeString(),
                 'banner' => 'banner3.jpg',
             ],
