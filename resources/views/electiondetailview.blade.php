@@ -26,17 +26,10 @@
 
     <div class="flex justify-center pb-7">
         @if (!$error)
-            @if(!session('error'))
-                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 rounded text-center"
-                    href="/voting/{{$electionData->id}}">
-                    Vote Now
-                </a>
-            @else
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 rounded text-center"
-                    onclick="return confirmation('/');">
-                    Vote Now
-                </button>
-            @endif
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 rounded text-center"
+                onclick="return confirmation('/voting/{{$electionData->id}}');">
+                Vote Now
+            </button>
         @else
             <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 rounded text-center" href="/">
                 Return to Dashboard
