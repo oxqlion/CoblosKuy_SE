@@ -33,7 +33,7 @@ class ElectionController extends Controller
 
         if ($currentTime >= $votingTime['votingTimeStart'] && $currentTime < $votingTime['votingTimeEnd']){
             try {
-                
+
                 return view('electiondetailview', [
                     'electionData' => $electionData,
                     'candidates' => $candidates,
@@ -53,7 +53,7 @@ class ElectionController extends Controller
     }
 
     public function getVotingPage($electionId)
-    {   
+    {
         $check = $this->processVote($electionId);
         if ($check) {
             return redirect()->back()->with('error', 'You have already voted');
