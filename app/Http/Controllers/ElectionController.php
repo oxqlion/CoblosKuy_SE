@@ -9,6 +9,7 @@ use App\Models\VoteModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ElectionController extends Controller
 {
@@ -25,53 +26,89 @@ class ElectionController extends Controller
     // mengambil data election dengan detail
     public function getElectionData($electionId)
     {
-        try {
-            $candidates = CandidateModel::where('electionId', $electionId)->get();
-            $electionData = ElectionModel::findOrFail($electionId);
+        $votingTime = $this->getVotingTime($electionId);
+        $currentTime = Carbon::now('Asia/Jakarta');
+        $candidates = CandidateModel::where('electionId', $electionId)->get();
+        $electionData = ElectionModel::findOrFail($electionId);
+
+        if ($currentTime >= $votingTime['votingTimeStart'] && $currentTime < $votingTime['votingTimeEnd']){
+            try {
+                
+                return view('electiondetailview', [
+                    'electionData' => $electionData,
+                    'candidates' => $candidates,
+                    'error' => null,
+                ]);
+            }
+            catch (Exception $e) {
+                return redirect()->back()->with('error', $e->getMessage());
+            }
+        } else {
             return view('electiondetailview', [
                 'electionData' => $electionData,
-                'candidates' => $candidates
+                'candidates' => $candidates,
+                'error' => 'The time for this election has ended.'
             ]);
-        }
-        catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
     public function getVotingPage($electionId)
-    {
-        try {
-            $candidates = CandidateModel::where('electionId', $electionId)->get();
-            return view('votingpageview', [
-                'candidates' => $candidates
-            ]);
+    {   
+        $check = $this->processVote($electionId);
+        if ($check) {
+            return redirect()->back()->with('error', 'You have already voted');
+        } else {
+            try {
+                $candidates = CandidateModel::where('electionId', $electionId)->get();
+                return view('votingpageview', [
+                    'candidates' => $candidates
+                ]);
+            }
+            catch (Exception $e) {
+                return redirect()->back()->with('error', $e->getMessage());
+            }
         }
-        catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+    }
+
+    public function vote(Request $request, $id){
+        $candidate = CandidateModel::find($id);
+        $election = ElectionModel::where('id', $candidate->electionId)->first();
+        $user = Auth::user();
+            try {
+                $this->createVote($election->id, $user->id);
+                $this->updateVoteCount($id);
+                $elections = ElectionModel::all();
+
+                return redirect()->route('electiondetail', ['id' => $election->id]);
+            }
+            catch (Exception $e) {
+                return redirect()->back()->with('error', $e->getMessage());
+            }
     }
 
     // melakukan pengecekkan apakah user dengan id sekian sudah vote di election dengan id sekian
-    public function processVote($electionId, $userId)
+    public function processVote($electionId)
     {
-        $hasVoted = VoteModel::where('user_id', $userId, 'election_id', $electionId)
-            ->where('election_id', $electionId)
+        $user = Auth::user();
+        $hasVoted = VoteModel::where('userId', $user->id)
+            ->where('electionId', $electionId)
             ->first();
 
-        if ($hasVoted) {
-            return redirect()->back()->with('error', 'You have already voted');
-        }
-        else {
-            return $this->createVote($electionId, $userId);
-        }
+        return $hasVoted;
+        // if ($hasVoted) {
+        //     return redirect()->back()->with('error', 'You have already voted');
+        // }
+        // else {
+        //     return $this->createVote($electionId, $userId);
+        // }
     }
 
     // mendapatkan data detail mengenai candidate
-    public function getCandidateDetail($electionId)
+    public function getCandidateDetail($id)
     {
         try {
-            $candidateDetail = CandidateModel::findOrFail($electionId);
-            return view('' . [
+            $candidateDetail = CandidateModel::findOrFail($id);
+            return view('candidatedetailview', [
                 'candidateDetail' => $candidateDetail
             ]);
         }
@@ -85,7 +122,7 @@ class ElectionController extends Controller
     {
         try {
             $candidate = CandidateModel::findOrFail($candidateId);
-            $candidate->voteCount = $candidate->vote_count + 1;
+            $candidate->voteCount = $candidate->voteCount + 1;
             $candidate->save();
             return redirect()->back();
         }
@@ -98,24 +135,11 @@ class ElectionController extends Controller
     public function createVote($electionId, $userId)
     {
         $nowJakarta = Carbon::now()->setTimezone('Asia/Jakarta');
-
-        try {
-            $electionData = ElectionModel::findOrFail($electionId);
-            $userData = User::findOrFail($userId);
-            $vote = new VoteModel();
-            $vote->election_id = $electionId;
-            $vote->user_id = $userId;
-            $vote->voteTime = $nowJakarta;
-            $vote->save();
-
-            return view('', [
-                'electionData' => $electionData,
-                'userData' => $userData
-            ]);
-        }
-        catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+        VoteModel::create([
+            'electionId' => $electionId,
+            'voteTime' => $nowJakarta,
+            'userId' => $userId,
+        ]);
     }
 
     // mengambil data waktu voting
@@ -124,10 +148,14 @@ class ElectionController extends Controller
         try {
             $votingTimeStart = ElectionModel::findOrFail($electionId)->timeStart;
             $votingTimeEnd = ElectionModel::findOrFail($electionId)->timeEnd;
-            return view('', [
+            return [
                 'votingTimeStart' => $votingTimeStart,
                 'votingTimeEnd' => $votingTimeEnd,
-            ]);
+            ];
+            // return view('', [
+            //     'votingTimeStart' => $votingTimeStart,
+            //     'votingTimeEnd' => $votingTimeEnd,
+            // ]);
         }
         catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

@@ -1,29 +1,44 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Election') }}
+            {{ __('Vote a Candidate') }}
         </h2>
     </x-slot>
-    <div class="grid grid-cols-2 gap-4 my-5 text-gray-800 dark:text-gray-200">
+    @if(session('error'))
+        <div class="py-5 text-gray-800 dark:text-gray-200">
+            <div class="box-content py-4 text-center">
+                <h1 class="text-4xl font-bold">{{ session('error') }}</h1>
+            </div>
+        </div>
+    @else
+    <div class="py-5 text-gray-800 dark:text-gray-200">
         @foreach ($candidates as $candidate)
-            <div class="box-content p-4 rounded-lg drop-shadow-xl text-center">
-                <img src="/images/{{$candidate->profilePicture}}" style="width: 428px; height: 428px;" class="mx-auto block">
-                <h1 class="text-center my-4 text-2xl font-bold">
+        <div class="py-5 text-gray-800 dark:text-gray-200 grid grid-cols-2">
+            <div class="box-content py-4 drop-shadow-xl text-center">
+                <img src="/images/{{$candidate->profilePicture}}" style="width: 300px; height: 300px;"
+                    class="mx-auto block rounded-xl">
+            </div>
+            <div class="box-content py-4 align-middle pe-10">
+                <h1 class="my-4 text-xl font-bold">
                     {{ $candidate->name }}
                 </h1>
-                <p class="text-center my-4"> {{$candidate->description}}</p>
-                <p class="text-center my-4 font-bold"> {{$candidate->numberOfVotes}}</p>
-                <div class="flex justify-center my-4"> <!-- Center the button horizontally -->
-                    <form action="/vote/{{$candidate->id}}" method="POST" onsubmit = "return confirmation(this);">
+                <h3 class="my-4 text-md font-semibold"> Mission </h3>
+                <p class = "mb-6"> {{$candidate->mission}}</p>
+                <h3 class="my-4 text-md font-semibold"> Vision </h3>
+                <p class = ""> Vision: {{$candidate->vision}}</p>
+                <div class="my-4 text-xl">
+                    <form action="/vote/{{$candidate->id}}" method="POST" onsubmit="return confirmation(this);">
                         @method('post')
                         @csrf
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> VOTE </button>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> VOTE
+                        </button>
                     </form>
                 </div>
             </div>
-
+        </div>
         @endforeach
     </div>
+    @endif
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         function confirmation(form){

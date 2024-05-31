@@ -22,7 +22,7 @@ class ElectionSeeder extends Seeder
                 'name' => 'SU IMT President ELECTION',
                 'description' => 'Yuk Voting President SU IMT 2026-2027',
                 'timeStart' => $nowJakarta->copy()->setTime(8, 0, 0)->toDateTimeString(),
-                'timeEnd' => $nowJakarta->copy()->setTime(17, 0, 0)->toDateTimeString(),
+                'timeEnd' => $nowJakarta->copy()->setTime(11, 0, 0)->toDateTimeString(),
                 'banner' => 'banner1.jpg',
             ],
             [
