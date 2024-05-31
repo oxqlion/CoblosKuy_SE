@@ -18,7 +18,6 @@ class SocialController extends Controller
     public function handleProvideCallback($provider)
     {
         try {
-
             $user = Socialite::driver($provider)->stateless()->user();
         } catch (Exception $e) {
             return redirect()->back();
@@ -27,10 +26,14 @@ class SocialController extends Controller
         $authUser = $this->findOrCreateUser($user, $provider);
 
         // login user
-        Auth()->login($authUser, true);
-
-        // setelah login redirect ke dashboard
-        return redirect()->intended('dashboard');
+        if (!$authUser == null) {
+            // User exists, so log them in
+            Auth()->login($authUser, true);
+            return redirect()->route('dashboard');
+        } else {
+            // User does not exist, redirect to login page
+            return redirect()->route('login')->withErrors(['email' => 'Unauthorized user']);
+        }
     }
 
     public function findOrCreateUser($socialUser, $provider)
@@ -40,34 +43,41 @@ class SocialController extends Controller
             ->where('provider_name', $provider)
             ->first();
 
-        // Jika sudah ada
+        // If social account already exists, return the associated user
         if ($socialAccount) {
-            // return user
             return $socialAccount->user;
-
-            // Jika belum ada
         } else {
+            // Extract the email domain (e.g., example.com)
+            $emailDomain = explode('@', $socialUser->getEmail())[1];
 
-            // User berdasarkan email 
-            $user = User::where('email', $socialUser->getEmail())->first();
+            // Define the allowed company email domains
+            $allowedDomains = ['student.ciputra.ac.id']; // Add more as needed
 
-            // Jika Tidak ada user
-            if (!$user) {
-                // Create user baru
-                $user = User::create([
-                    'name'  => $socialUser->getName(),
-                    'email' => $socialUser->getEmail()
+            // Check if the email domain is allowed
+            if (in_array($emailDomain, $allowedDomains)) {
+                // Find or create user based on email
+                $user = User::where('email', $socialUser->getEmail())->first();
+
+                if (!$user) {
+                    // Create a new user
+                    $user = User::create([
+                        'name' => $socialUser->getName(),
+                        'email' => $socialUser->getEmail(),
+                    ]);
+                }
+
+                // Create a new social account
+                $user->socialAccounts()->create([
+                    'provider_id' => $socialUser->getId(),
+                    'provider_name' => $provider,
                 ]);
+
+                return $user;
+            } else {
+                // Redirect to login page with an error message
+                // return redirect()->route('login')->withErrors(['email' => 'Unauthorized domain']);
+                return null;
             }
-
-            // Buat Social Account baru
-            $user->socialAccounts()->create([
-                'provider_id'   => $socialUser->getId(),
-                'provider_name' => $provider
-            ]);
-
-            // return user
-            return $user;
         }
     }
 }
