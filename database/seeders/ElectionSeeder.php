@@ -28,7 +28,7 @@ class ElectionSeeder extends Seeder
             [
                 'name' => 'SU ISB President ELECTION',
                 'description' => 'Yuk Voting President SU ISB 2026-2027',
-                'timeStart' => $nowJakarta->copy()->setTime(9, 0, 0)->toDateTimeString(),
+                'timeStart' => $nowJakarta->copy()->setTime(7, 0, 0)->toDateTimeString(),
                 'timeEnd' => $nowJakarta->copy()->setTime(24, 0, 0)->toDateTimeString(),
                 'banner' => 'banner2.jpg',
             ],
